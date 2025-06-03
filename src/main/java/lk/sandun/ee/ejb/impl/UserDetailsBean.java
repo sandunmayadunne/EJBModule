@@ -1,13 +1,33 @@
 package lk.sandun.ee.ejb.impl;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import jakarta.ejb.Stateless;
 import lk.sandun.ee.ejb.remote.UserDetails;
 
-@Stateless
+@Stateless(name = "UserInfo", mappedName = "UserInfo")
 public class UserDetailsBean implements UserDetails {
+
+    int count;
+
+    @PostConstruct
+    public void init() {
+        System.out.println("UserDetailsBean init");
+    }
+    @PreDestroy
+    public void destroy() {
+        System.out.println("UserDetailsBean destroy");
+    }
+
     @Override
     public String getName() {
-        return "Sandun";
+        try {
+            Thread.sleep(5000);
+        }catch (Exception e) {
+
+        }
+        count++;
+        return "Sandun : "+count;
     }
 
     @Override
